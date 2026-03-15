@@ -120,3 +120,40 @@ ReferenceError: path is not defined
     at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:340:24)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
 
+[2026-03-15T10:55:58.260Z] Génération articles: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-automatisation-avec-intelligence-artificielle-est-en-train-de-revolutionner-le-monde-des-entreprises-et-des-industries-en-permettant-aux-organisations-de-gagner-en-efficacite-en-productivite-et-en-competitivite-grace-a-l-intelligence-artificielle-les-entreprises-peuvent-desormais-automatiser-des-taches-repetitives-et-fastidieuses-liberant-ainsi-leurs-employes-pour-se-concentrer-sur-des-taches-plus-strategiques-et-creatives.md'
+Error: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-automatisation-avec-intelligence-artificielle-est-en-train-de-revolutionner-le-monde-des-entreprises-et-des-industries-en-permettant-aux-organisations-de-gagner-en-efficacite-en-productivite-et-en-competitivite-grace-a-l-intelligence-artificielle-les-entreprises-peuvent-desormais-automatiser-des-taches-repetitives-et-fastidieuses-liberant-ainsi-leurs-employes-pour-se-concentrer-sur-des-taches-plus-strategiques-et-creatives.md'
+    at writeFileSync (node:fs:2368:20)
+    at saveArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:334:3)
+    at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:348:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+[2026-03-15T10:58:25.507Z] Génération articles: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-automatisation-avec-l-intelligence-artificielle-ia-est-en-train-de-revolutionner-le-monde-des-entreprises-et-des-industries-en-leur-offrant-des-moyens-de-rationaliser-leurs-processus-d-ameliorer-leur-efficacite-et-de-reduire-leurs-couts-grace-a-l-ia-les-entreprises-peuvent-desormais-automatiser-des-taches-repetitives-et-fastidieuses-liberant-ainsi-leurs-employes-pour-se-concentrer-sur-des-taches-plus-strategiques-et-creatives.md'
+Error: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-automatisation-avec-l-intelligence-artificielle-ia-est-en-train-de-revolutionner-le-monde-des-entreprises-et-des-industries-en-leur-offrant-des-moyens-de-rationaliser-leurs-processus-d-ameliorer-leur-efficacite-et-de-reduire-leurs-couts-grace-a-l-ia-les-entreprises-peuvent-desormais-automatiser-des-taches-repetitives-et-fastidieuses-liberant-ainsi-leurs-employes-pour-se-concentrer-sur-des-taches-plus-strategiques-et-creatives.md'
+    at writeFileSync (node:fs:2368:20)
+    at saveArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:329:3)
+    at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:343:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+[2026-03-15T11:04:18.477Z] Génération articles: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-intelligence-artificielle-a-revolutionne-notre-facon-de-vivre-et-de-travailler-et-les-assistants-virtuels-tels-que-gpt-generative-pre-trained-transformer-sont-a-la-pointe-de-cette-revolution-ces-outils-innovants-sont-capables-de-comprendre-et-de-repondre-a-des-questions-complexes-de-generer-du-contenu-et-meme-d-aider-dans-la-prise-de-decision-ce-qui-les-rend-indispensables-pour-de-nombreuses-personnes-et-entreprises.md'
+Error: ENOENT: no such file or directory, open 'C:\Users\daveo\cashnary\content\ia-tech\2026-03-15-l-intelligence-artificielle-a-revolutionne-notre-facon-de-vivre-et-de-travailler-et-les-assistants-virtuels-tels-que-gpt-generative-pre-trained-transformer-sont-a-la-pointe-de-cette-revolution-ces-outils-innovants-sont-capables-de-comprendre-et-de-repondre-a-des-questions-complexes-de-generer-du-contenu-et-meme-d-aider-dans-la-prise-de-decision-ce-qui-les-rend-indispensables-pour-de-nombreuses-personnes-et-entreprises.md'
+    at writeFileSync (node:fs:2368:20)
+    at saveArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:329:3)
+    at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:348:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+[2026-03-15T11:10:27.255Z] Échec génération ia-tech: fetch failed
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:156:20)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:247:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:348:20)
+
+[2026-03-15T11:10:27.264Z] Génération articles: fetch failed
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:156:20)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:247:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:348:20)
+

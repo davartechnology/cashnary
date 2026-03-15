@@ -125,7 +125,7 @@ async function callGrok(prompt) {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: "Tu es un expert rédacteur de blog francophone. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Titre accrocheur avec chiffres ou question. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. N'utilise JAMAIS de ** ou * pour le titre principal. Le titre doit être en texte brut sans formatage markdown." },
+      { role: "system", content: "PREMIÈRE LIGNE OBLIGATOIRE : écris un titre court et accrocheur de maximum 80 caractères. Exemples : '5 outils IA pour tripler ta productivité en 2025' 'Comment gagner 1000€/mois avec le freelance en 3 mois' Ne commence JAMAIS par une phrase d'introduction longue. Tu es un expert rédacteur de blog francophone. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible." },
       { role: "user", content: prompt }
     ],
     max_tokens: 1500,
@@ -164,7 +164,7 @@ async function callDeepSeek(prompt) {
       messages: [
         { 
           role: 'system', 
-          content: 'Tu es un expert rédacteur de blog francophone spécialisé en intelligence artificielle et nouvelles technologies. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Titre accrocheur avec chiffres ou question. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l\'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.' 
+          content: 'Tu es un expert rédacteur de blog francophone spécialisé en intelligence artificielle et nouvelles technologies. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N\'écris JAMAIS \'H2:\' en texte brut. N\'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l\'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.' 
         },
         { role: 'user', content: prompt }
       ],
@@ -202,7 +202,7 @@ async function callGemini(topic) {
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  const prompt = `Tu es un expert rédacteur de blog francophone spécialisé en business en ligne et entrepreneuriat digital. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Titre accrocheur avec chiffres ou question. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.\n\nSujet: ${topic}`;
+  const prompt = `Tu es un expert rédacteur de blog francophone spécialisé en business en ligne et entrepreneuriat digital. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.\n\nSujet: ${topic}`;
 
   log(`📡 Appel Gemini avec le sujet: ${topic}`);
 
@@ -261,50 +261,59 @@ async function generateArticle(theme) {
   return { content, usedApi };
 }
 
-// Parse and format article content
 function formatArticle(content, theme) {
-  const lines = content.split('\n');
+  // Nettoyer le contenu
+  let cleanContent = content
+    .replace(/^H2:\s*/gm, '## ')
+    .replace(/^\*\*(.*?)\*\*$/gm, '$1')
+
+  const lines = cleanContent.split('\n');
   let title = '';
-  let body = content;
 
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed) {
-      if (trimmed.startsWith('# ')) {
-        title = trimmed.substring(2).trim();
-      } else {
-        title = trimmed;
-      }
+    if (!trimmed || trimmed.startsWith('---')) continue;
+    if (trimmed.startsWith('# ')) {
+      title = trimmed.substring(2).trim().replace(/\*\*/g, '');
+      break;
+    }
+    // Titre = première ligne courte (moins de 100 caractères)
+    if (trimmed.length < 100 && !trimmed.startsWith('##')) {
+      title = trimmed.replace(/\*\*/g, '');
       break;
     }
   }
+  // Si toujours pas de titre court, génère un titre depuis le topic
+  if (!title || title.length > 100) {
+    title = 'Article CASHNARY ' + getDateString()
+  }
 
-  const slug = generateSlug(title);
+  const slug = generateSlug(title).substring(0, 60).replace(/-+$/g, '')
   const date = getDateString();
-  const wordCount = content.split(/\s+/).filter(w => w.length > 0).length;
-  
-  const description = body
-    .replace(/^#.*$/gm, '')
+  const wordCount = cleanContent.split(/\s+/).filter(w => w.length > 0).length;
+
+  const description = cleanContent
+    .replace(/^#+.*$/gm, '')
+    .replace(/\*\*/g, '')
     .replace(/\n+/g, ' ')
     .trim()
     .substring(0, 150)
     .trim() + '...';
-
-  const tags = theme === 'ia-tech' 
+  const tags = theme === 'ia-tech'
     ? ['IA', 'technologie', 'productivité']
     : ['business', 'entrepreneur', 'revenus'];
 
   const frontmatter = `---
-title: "${title}"
+title: "${title.replace(/"/g, "'")}"
 date: "${date}"
 slug: "${slug}"
-description: "${description}"
+description: "${description.replace(/"/g, "'")}"
 theme: "${theme}"
 tags: ${JSON.stringify(tags)}
 wordCount: ${wordCount}
 ---
 
-${body}`;
+${cleanContent}`;
 
   return {
     filename: `${date}-${slug}.md`,
@@ -335,9 +344,15 @@ async function main() {
 
   try {
     // Generate ia-tech article
+    console.log('📝 Étape 1: generateArticle...')
     const iaTech = await generateArticle('ia-tech');
+    console.log('📝 Étape 2: formatArticle...')
     const iaTechFormatted = formatArticle(iaTech.content, 'ia-tech');
+    console.log('📝 Étape 3: saveArticle...')
+    console.log('📝 Title:', iaTechFormatted.title)
+    console.log('📝 Filename:', iaTechFormatted.filename)
     const iaTechPath = saveArticle('ia-tech', iaTechFormatted);
+    console.log('📝 Étape 4: sauvegarde OK')
     log(`\n✅ Article 1 généré : ${iaTechFormatted.title} (${iaTechFormatted.wordCount} mots) - ${iaTech.usedApi}`);
     log(`   📁 ${iaTechPath}`);
 
@@ -353,6 +368,7 @@ async function main() {
     
   } catch (error) {
     log('\n❌ Échec de la génération:');
+    console.error('ERREUR COMPLÈTE:', error)
     logError('Génération articles', error);
     process.exit(1);
   }
