@@ -1,0 +1,122 @@
+[2026-03-14T22:17:52.008Z] Échec génération ia-tech: GEMINI_API_KEY not found in environment variables
+Error: GEMINI_API_KEY not found in environment variables
+    at callGemini (C:\Users\daveo\cashnary\scripts\generate.js:139:11)
+    at generateArticle (C:\Users\daveo\cashnary\scripts\generate.js:189:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async main (C:\Users\daveo\cashnary\scripts\generate.js:302:20)
+
+[2026-03-14T22:17:52.018Z] Génération articles: GEMINI_API_KEY not found in environment variables
+Error: GEMINI_API_KEY not found in environment variables
+    at callGemini (C:\Users\daveo\cashnary\scripts\generate.js:139:11)
+    at generateArticle (C:\Users\daveo\cashnary\scripts\generate.js:189:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async main (C:\Users\daveo\cashnary\scripts\generate.js:302:20)
+
+[2026-03-14T22:41:25.362Z] Échec génération ia-tech: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async callGemini (file:///c:/Users/daveo/cashnary/scripts/generate.js:174:18)
+    at async generateArticle (file:///c:/Users/daveo/cashnary/scripts/generate.js:204:19)
+    at async main (file:///c:/Users/daveo/cashnary/scripts/generate.js:311:20)
+
+[2026-03-14T22:41:25.370Z] Génération articles: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///c:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async callGemini (file:///c:/Users/daveo/cashnary/scripts/generate.js:174:18)
+    at async generateArticle (file:///c:/Users/daveo/cashnary/scripts/generate.js:204:19)
+    at async main (file:///c:/Users/daveo/cashnary/scripts/generate.js:311:20)
+
+[2026-03-14T22:42:44.612Z] Échec génération ia-tech: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async callGemini (file:///C:/Users/daveo/cashnary/scripts/generate.js:174:18)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:204:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:311:20)
+
+[2026-03-14T22:42:44.616Z] Génération articles: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///C:/Users/daveo/cashnary/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async callGemini (file:///C:/Users/daveo/cashnary/scripts/generate.js:174:18)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:204:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:311:20)
+
+[2026-03-14T22:52:21.613Z] Échec génération ia-tech: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:52:21.618Z] Génération articles: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:54:53.433Z] Échec génération ia-tech: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:54:53.435Z] Génération articles: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:57:08.202Z] Échec génération ia-tech: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:57:08.208Z] Génération articles: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:57:17.245Z] Échec génération ia-tech: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T22:57:17.251Z] Génération articles: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+Error: DeepSeek API error: 402 - {"error":{"message":"Insufficient Balance","type":"unknown_error","param":null,"code":"invalid_request_error"}}
+    at callDeepSeek (file:///C:/Users/daveo/cashnary/scripts/generate.js:188:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:255:19)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:346:20)
+
+[2026-03-14T23:02:22.929Z] Génération articles: path is not defined
+ReferenceError: path is not defined
+    at saveArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:319:20)
+    at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:340:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+[2026-03-14T23:04:48.835Z] Génération articles: path is not defined
+ReferenceError: path is not defined
+    at saveArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:319:20)
+    at main (file:///C:/Users/daveo/cashnary/scripts/generate.js:340:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
