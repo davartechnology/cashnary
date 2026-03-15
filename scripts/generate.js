@@ -47,23 +47,36 @@ const CONFIG = {
   errorsLog: join(rootDir, 'logs', 'errors.log'),
   themes: {
     'ia-tech': {
-      api: 'deepseek',
       topics: [
-        'outils IA pour productivité',
-        'automatisation avec intelligence artificielle',
-        'nouvelles technologies 2024',
-        'GPT et assistants virtuels',
-        'machine learning pour débutants'
+        "Comment gagner de l'argent avec l'IA en 2026",
+        "10 idées de business avec l'intelligence artificielle",
+        "Comment utiliser ChatGPT pour générer des revenus",
+        "Comment lancer un business automatisé avec l'IA",
+        "7 services que tu peux vendre avec l'intelligence artificielle",
+        "Comment créer un revenu passif avec l'IA",
+        "Les outils d'IA pour gagner de l'argent en ligne",
+        "Comment automatiser un business avec l'intelligence artificielle",
+        "Comment automatiser une chaîne YouTube avec l'IA",
+        "Les meilleures idées de business IA pour débutants"
       ]
     },
     'business-en-ligne': {
-      api: 'gemini',
       topics: [
-        'gagner de largent en ligne',
-        'devenir freelance',
-        'e-commerce rentable',
-        'créer un SaaS',
-        'marketing digital entrepreneurial'
+        "25 façons de gagner de l'argent sur internet en 2026",
+        "Comment générer 1000$ par mois en ligne",
+        "Les meilleurs business en ligne pour débutants",
+        "Comment démarrer un business en ligne rentable",
+        "15 idées de business en ligne rentables en 2026",
+        "Comment créer un business sur internet avec peu d'argent",
+        "Comment gagner ses premiers 100$ sur internet",
+        "Comment passer de 0$ à 1000$ par mois sur internet",
+        "Les revenus passifs les plus accessibles en 2026",
+        "Comment quitter son travail grâce à internet",
+        "Comment gagner de l'argent en freelance sur internet",
+        "Les services digitaux les plus demandés en 2026",
+        "Comment gagner 2000$ par mois en freelance",
+        "Les meilleures opportunités pour gagner de l'argent en 2026",
+        "Comment créer plusieurs sources de revenus en ligne"
       ]
     }
   }
@@ -125,7 +138,7 @@ async function callGrok(prompt) {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: "PREMIÈRE LIGNE OBLIGATOIRE : écris un titre court et accrocheur de maximum 80 caractères. Exemples : '5 outils IA pour tripler ta productivité en 2025' 'Comment gagner 1000€/mois avec le freelance en 3 mois' Ne commence JAMAIS par une phrase d'introduction longue. Tu es un expert rédacteur de blog francophone. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible." },
+      { role: "system", content: "Tu es un expert en business en ligne et stratégies pour gagner de l'argent sur internet.\nRédige un article de blog ULTRA captivant en français.\n\nRÈGLES STRICTES :\n- PREMIÈRE LIGNE : titre court et accrocheur (max 80 caractères) en texte brut, sans # ni **\n- Entre 600 et 800 mots STRICTEMENT\n- Utilise ## pour les sous-titres (jamais 'H2:')\n- Donne des étapes CONCRÈTES et ACTIONNABLES\n- Cite des chiffres réels et des exemples précis\n- Parle directement au lecteur avec 'tu'\n- Promets un résultat tangible dès l'introduction\n- Conclusion avec un appel à l'action fort\n- Ton : direct, motivant, expert, comme un mentor" },
       { role: "user", content: prompt }
     ],
     max_tokens: 1500,
