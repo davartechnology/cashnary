@@ -64,6 +64,10 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     'business-en-ligne': 'bg-green-500/20 text-green-400',
   }
 
+  // Clean title and description from markdown asterisks
+  const cleanTitle = article.title.replace(/\*\*/g, '').replace(/\*/g, '')
+  const cleanDescription = article.description.replace(/\*\*/g, '').replace(/\*/g, '')
+
   return (
     <div className="min-h-screen py-12">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,7 +91,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Title */}
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            {article.title}
+            {cleanTitle}
           </h1>
 
           {/* Meta */}
@@ -116,12 +120,19 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Description */}
           <p className="mt-6 text-xl text-white/70 leading-relaxed">
-            {article.description}
+            {cleanDescription}
           </p>
         </header>
 
         {/* Article Content */}
-        <div className="article-content prose prose-invert prose-lg max-w-none">
+        <div className="
+          prose prose-invert max-w-none
+          prose-h1:text-3xl prose-h1:font-bold prose-h1:text-white prose-h1:mb-6
+          prose-h2:text-xl prose-h2:font-semibold prose-h2:text-yellow-400 prose-h2:mt-8 prose-h2:mb-4
+          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+          prose-strong:text-white
+          prose-li:text-gray-300
+        ">
           <MDXRemote 
             source={fullArticle.content} 
             options={{

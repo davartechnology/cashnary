@@ -125,7 +125,7 @@ async function callGrok(prompt) {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: "Tu es un expert rédacteur de blog francophone. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Titre accrocheur avec chiffres ou question. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible." },
+      { role: "system", content: "Tu es un expert rédacteur de blog francophone. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Titre accrocheur avec chiffres ou question. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. N'utilise JAMAIS de ** ou * pour le titre principal. Le titre doit être en texte brut sans formatage markdown." },
       { role: "user", content: prompt }
     ],
     max_tokens: 1500,
