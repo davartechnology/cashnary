@@ -50,7 +50,27 @@ export default function Footer() {
             <h3 className="text-gold font-semibold mb-4">Légal</h3>
             <ul className="space-y-2">
               <li>
-                <span className="text-white/60 text-sm">© 2024 CASHNARY. Tous droits réservés.</span>
+                <Link href="/a-propos" className="text-white/60 hover:text-gold transition-colors text-sm">
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-white/60 hover:text-gold transition-colors text-sm">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/politique-de-confidentialite" className="text-white/60 hover:text-gold transition-colors text-sm">
+                  Politique de confidentialité
+                </Link>
+              </li>
+              <li>
+                <Link href="/mentions-legales" className="text-white/60 hover:text-gold transition-colors text-sm">
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <span className="text-white/40 text-sm">© 2026 CASHNARY. Tous droits réservés.</span>
               </li>
             </ul>
           </div>
