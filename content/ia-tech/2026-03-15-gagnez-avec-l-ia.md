@@ -2,7 +2,7 @@
 title: "Gagnez avec l'IA"
 date: "2026-03-15"
 slug: "gagnez-avec-l-ia"
-description: "Gagnez avec l'IA Tu es prêt à créer un revenu passif grâce à l'intelligence artificielle ? Dans cet article, je vais te montrer comment générer des re..."
+description: "Gagnez avec l'IA Tu es prêt à créer un revenu passif grâce à l'intelligence artificielle ? Dans cet article, je vais te montrer comment générer des revenus."
 theme: "ia-tech"
 tags: ["IA","technologie","productivité"]
 wordCount: 688
