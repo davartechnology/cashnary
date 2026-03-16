@@ -45,4 +45,5 @@ jobs:
           git pull origin main --rebase
           git add content/
           git diff --staged --quiet || git commit -m "🤖 Auto: 2 nouveaux articles $(date +'%Y-%m-%d %H:%M')"
+          git pull origin main --rebase
           git push origin main
