@@ -32,6 +32,15 @@ function loadEnv() {
   } catch(e) {
     console.error("Erreur lecture .env.local:", e.message)
   }
+  
+  // Les variables GitHub Actions sont déjà dans process.env
+  // On ne les écrase pas si elles existent déjà
+  const envVars = ['GROQ_API_KEY', 'GEMINI_API_KEY', 'DEEPSEEK_API_KEY']
+  envVars.forEach(key => {
+    if (process.env[key]) {
+      console.log(`✅ ${key} chargée depuis l'environnement système`)
+    }
+  })
 }
 
 loadEnv()
@@ -213,7 +222,7 @@ async function callGemini(topic) {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = `Tu es un expert rédacteur de blog francophone spécialisé en business en ligne et entrepreneuriat digital. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.\n\nSujet: ${topic}`;
 
