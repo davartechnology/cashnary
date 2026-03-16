@@ -1,6 +1,11 @@
+'use client'
+
 export default function AdsUnit() {
   return (
-    <div style={{ width: '100%', margin: '20px auto', position: 'relative', zIndex: 99998 }}>
+    <div 
+      id="frame" 
+      style={{ width: '100%', margin: 'auto', position: 'relative', zIndex: 99998 }}
+    >
       <iframe 
         data-aa='2430703' 
         src='//acceptable.a-ads.com/2430703/?size=Adaptive'
@@ -13,6 +18,7 @@ export default function AdsUnit() {
           display: 'block', 
           margin: 'auto' 
         }}
+        scrolling='no'
       />
     </div>
   )
