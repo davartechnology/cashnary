@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
+import AdsUnit from '@/components/AdsUnit'
 
 interface ArticlePageProps {
   params: { slug: string }
@@ -124,6 +125,9 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           </p>
         </header>
 
+        {/* Publicité en haut */}
+        <AdsUnit />
+
         {/* Article Content */}
         <div className="
           prose prose-invert max-w-none
@@ -142,6 +146,9 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             }}
           />
         </div>
+
+        {/* Publicité en bas */}
+        <AdsUnit />
 
         {/* Tags */}
         {article.tags && article.tags.length > 0 && (
