@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import Groq from 'groq-sdk'
+import { TwitterApi } from 'twitter-api-v2'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -44,6 +45,33 @@ function loadEnv() {
 }
 
 loadEnv()
+
+// Post to Twitter/X after article generation
+async function postToTwitter(title, slug, theme) {
+  try {
+    const client = new TwitterApi({
+      appKey: process.env.TWITTER_API_KEY,
+      appSecret: process.env.TWITTER_API_SECRET,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+    })
+
+    const emoji = theme === 'ia-tech' ? '🤖' : '💰'
+    const hashtags = theme === 'ia-tech' 
+      ? '#IA #Intelligence #Technologie #Business' 
+      : '#Business #ArgentEnLigne #Freelance #Entrepreneur'
+    
+    const blogUrl = 'https://cashnary.vercel.app'
+    const articleUrl = `${blogUrl}/blog/${slug}`
+    
+    const tweet = `${emoji} ${title}\n\n${hashtags}\n\n👉 ${articleUrl}`
+    
+    await client.v2.tweet(tweet)
+    log(`🐦 Tweet publié : ${title}`)
+  } catch(e) {
+    log(`⚠️ Twitter échoué: ${e.message}`)
+  }
+}
 
 console.log("GROQ:", process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.substring(0,8) + "..." : "NON CHARGÉE")
 console.log("DEEPSEEK:", process.env.DEEPSEEK_API_KEY ? process.env.DEEPSEEK_API_KEY.substring(0,8) + "..." : "NON CHARGÉE")
@@ -375,6 +403,7 @@ async function main() {
     console.log('📝 Filename:', iaTechFormatted.filename)
     const iaTechPath = saveArticle('ia-tech', iaTechFormatted);
     console.log('📝 Étape 4: sauvegarde OK')
+    await postToTwitter(iaTechFormatted.title, iaTechFormatted.filename.replace('.md',''), 'ia-tech')
     log(`\n✅ Article 1 généré : ${iaTechFormatted.title} (${iaTechFormatted.wordCount} mots) - ${iaTech.usedApi}`);
     log(`   📁 ${iaTechPath}`);
 
@@ -382,6 +411,7 @@ async function main() {
     const business = await generateArticle('business-en-ligne');
     const businessFormatted = formatArticle(business.content, 'business-en-ligne');
     const businessPath = saveArticle('business-en-ligne', businessFormatted);
+    await postToTwitter(businessFormatted.title, businessFormatted.filename.replace('.md',''), 'business-en-ligne')
     log(`\n✅ Article 2 généré : ${businessFormatted.title} (${businessFormatted.wordCount} mots) - ${business.usedApi}`);
     log(`   📁 ${businessPath}`);
 
