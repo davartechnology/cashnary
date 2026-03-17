@@ -49,6 +49,15 @@ loadEnv()
 // Post to Twitter/X after article generation
 async function postToTwitter(title, slug, theme) {
   try {
+    console.log("TWITTER_API_KEY:", process.env.TWITTER_API_KEY ? 
+      process.env.TWITTER_API_KEY.substring(0,8) + "..." : "NON CHARGÉE")
+    console.log("TWITTER_API_SECRET:", process.env.TWITTER_API_SECRET ? 
+      process.env.TWITTER_API_SECRET.substring(0,8) + "..." : "NON CHARGÉE")
+    console.log("TWITTER_ACCESS_TOKEN:", process.env.TWITTER_ACCESS_TOKEN ? 
+      process.env.TWITTER_ACCESS_TOKEN.substring(0,8) + "..." : "NON CHARGÉE")
+    console.log("TWITTER_ACCESS_TOKEN_SECRET:", process.env.TWITTER_ACCESS_TOKEN_SECRET ? 
+      process.env.TWITTER_ACCESS_TOKEN_SECRET.substring(0,8) + "..." : "NON CHARGÉE")
+    
     const client = new TwitterApi({
       appKey: process.env.TWITTER_API_KEY,
       appSecret: process.env.TWITTER_API_SECRET,
