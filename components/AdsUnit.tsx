@@ -2,23 +2,26 @@
 
 export default function AdsUnit() {
   return (
-    <div 
-      id="frame" 
-      style={{ width: '300px', margin: 'auto', zIndex: 99998, height: 'auto' }}
-    >
-      <iframe 
-        data-aa='2430703' 
-        src='//ad.a-ads.com/2430703/?size=300x250'
-        style={{ 
-          border: 0, 
-          padding: 0, 
-          width: '300px', 
-          height: '250px', 
-          overflow: 'hidden', 
-          display: 'block', 
-          margin: 'auto' 
-        }}
-      />
+    <div style={{ width: '100%', margin: '20px auto', textAlign: 'center' }}>
+      
+      {/* Adsterra 300x250 */}
+      <div style={{ display: 'inline-block', margin: '10px auto' }}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              atOptions = {
+                'key' : '7a866bfbc5ac80c3641a26a5bef88abd',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            `
+          }}
+        />
+        <script src="https://www.highperformanceformat.com/7a866bfbc5ac80c3641a26a5bef88abd/invoke.js" />
+      </div>
+
     </div>
   )
 }

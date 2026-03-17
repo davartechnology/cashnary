@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   title: 'CASHNARY - L\'intelligence au service de votre succès',
   description: 'Blog spécialisé en IA et business en ligne. Découvrez les dernières tendances technologiques et les stratégies pour développer votre activité en ligne.',
   other: {
-    'google-adsense-account': 'ca-pub-7284964256964726'
+    'google-adsense-account': 'ca-pub-7284964256964726',
+    'monetag': 'bb6ab6cbe1bebec39cabb7a79c8f6194'
   }
 }
 
