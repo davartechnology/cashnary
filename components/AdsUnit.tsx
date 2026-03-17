@@ -4,21 +4,20 @@ export default function AdsUnit() {
   return (
     <div 
       id="frame" 
-      style={{ width: '100%', margin: 'auto', position: 'relative', zIndex: 99998 }}
+      style={{ width: '300px', margin: 'auto', zIndex: 99998, height: 'auto' }}
     >
       <iframe 
         data-aa='2430703' 
-        src='//acceptable.a-ads.com/2430703/?size=Adaptive'
+        src='//ad.a-ads.com/2430703/?size=300x250'
         style={{ 
           border: 0, 
           padding: 0, 
-          width: '70%', 
-          height: 'auto', 
+          width: '300px', 
+          height: '250px', 
           overflow: 'hidden', 
           display: 'block', 
           margin: 'auto' 
         }}
-        scrolling='no'
       />
     </div>
   )
