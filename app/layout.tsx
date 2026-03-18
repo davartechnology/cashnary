@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   title: 'CASHNARY - L\'intelligence au service de votre succès',
   description: 'Blog spécialisé en IA et business en ligne. Découvrez les dernières tendances technologiques et les stratégies pour développer votre activité en ligne.',
   other: {
-    'google-adsense-account': 'ca-pub-7284964256964726',
-    'monetag': 'bb6ab6cbe1bebec39cabb7a79c8f6194'
+    'google-adsense-account': 'ca-pub-7284964256964726'
   }
 }
 
@@ -21,6 +20,13 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="min-h-screen flex flex-col">
+        <Script 
+          src="https://quge5.com/88/tag.min.js" 
+          data-zone="220901" 
+          async 
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7284964256964726"
