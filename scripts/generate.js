@@ -263,7 +263,7 @@ async function callGrok(prompt) {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: "Tu es un expert en business en ligne, revenus passifs et \nstratégies digitales. Tu écris pour un blog francophone \nappelé CASHNARY.\n\nRÈGLES STRICTES :\n- PREMIÈRE LIGNE : titre court et accrocheur MAX 80 caractères, \n  en texte brut sans # ni **\n- Minimum 2000 caractères OBLIGATOIRE\n- Utilise ## pour les sous-titres (jamais 'H2:' en texte brut)\n- Donne des étapes CONCRÈTES et ACTIONNABLES avec des chiffres\n- Parle directement au lecteur avec 'tu'\n- Cite des plateformes, outils et exemples RÉELS\n- Donne des fourchettes de revenus réalistes\n- Structure : Introduction → Pourquoi ça marche → \n  Étapes concrètes → Erreurs à éviter → \n  Revenus potentiels → Outils recommandés → Conclusion\n- Ton : mentor bienveillant, direct, motivant et honnête\n- Jamais de contenu vague ou générique\n- Toujours donner des actions précises que le lecteur \n  peut faire AUJOURD'HUI" },
+      { role: "system", content: "IMPORTANT : Tu dois écrire un article COMPLET et DÉTAILLÉ \nde minimum 1500 mots. Chaque section doit avoir au moins \n200 mots. Ne résume pas, développe chaque point en profondeur.\n\nTu es un expert en business en ligne, revenus passifs et \nstratégies digitales. Tu écris pour un blog francophone \nappelé CASHNARY.\n\nRÈGLES STRICTES :\n- PREMIÈRE LIGNE : titre court et accrocheur MAX 80 caractères, \n  en texte brut sans # ni **\n- Minimum 2000 caractères OBLIGATOIRE\n- Utilise ## pour les sous-titres (jamais 'H2:' en texte brut)\n- Donne des étapes CONCRÈTES et ACTIONNABLES avec des chiffres\n- Parle directement au lecteur avec 'tu'\n- Cite des plateformes, outils et exemples RÉELS\n- Donne des fourchettes de revenus réalistes\n- Structure : Introduction → Pourquoi ça marche → \n  Étapes concrètes → Erreurs à éviter → \n  Revenus potentiels → Outils recommandés → Conclusion\n- Ton : mentor bienveillant, direct, motivant et honnête\n- Jamais de contenu vague ou générique\n- Toujours donner des actions précises que le lecteur \n  peut faire AUJOURD'HUI" },
       { role: "user", content: prompt }
     ],
     max_tokens: 4000,
@@ -368,7 +368,7 @@ async function generateArticle(theme) {
   // Priority: Grok -> Gemini -> DeepSeek
   try {
     log(`\n🤖 Génération article ${theme} avec Grok...`);
-    content = await callGrok(prompt);
+    content = await callGrok(topic);
     usedApi = 'Grok';
   } catch (e) {
     log(`⚠️ Grok échoué: ${e.message}`);
@@ -376,7 +376,7 @@ async function generateArticle(theme) {
     // Fallback 1: Gemini
     try {
       log(`🔄 Tentative avec Gemini...`);
-      content = await callGemini(prompt);
+      content = await callGemini(topic);
       usedApi = 'Gemini (fallback)';
     } catch (e2) {
       log(`⚠️ Gemini échoué: ${e2.message}`);
@@ -384,7 +384,7 @@ async function generateArticle(theme) {
       // Fallback 2: DeepSeek
       try {
         log(`🔄 Tentative avec DeepSeek...`);
-        content = await callDeepSeek(prompt);
+        content = await callDeepSeek(topic);
         usedApi = 'DeepSeek (fallback)';
       } catch (e3) {
         log(`⚠️ DeepSeek échoué: ${e3.message}`);
@@ -398,33 +398,27 @@ async function generateArticle(theme) {
     throw error;
   }
 
-  return { content, usedApi };
+  return { content, usedApi, topic };
 }
 
-function formatArticle(content, theme) {
+function formatArticle(content, theme, topic = '') {
   // Nettoyer le contenu
   let cleanContent = content
     .replace(/^H2:\s*/gm, '## ')
     .replace(/^\*\*(.*?)\*\*$/gm, '$1')
 
-  const lines = cleanContent.split('\n');
-  let title = '';
+  // Utiliser directement le topic comme titre
+  let title = topic || ''
 
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('---')) continue;
-    if (trimmed.startsWith('# ')) {
-      title = trimmed.substring(2).trim().replace(/\*\*/g, '');
-      break;
-    }
-    // Titre = première ligne courte (moins de 100 caractères)
-    if (trimmed.length < 100 && !trimmed.startsWith('##')) {
-      title = trimmed.replace(/\*\*/g, '');
-      break;
-    }
-  }
-  // Si toujours pas de titre court, génère un titre depuis le topic
-  if (!title || title.length > 100) {
+  // Nettoyer le titre
+  title = title
+    .replace(/^[\*\-\•]\s+/, '')
+    .replace(/:\s*$/, '')
+    .replace(/\*\*/g, '')
+    .trim()
+
+  // Fallback si topic vide
+  if (!title || title.length < 5) {
     title = 'Article CASHNARY ' + getDateString()
   }
 
@@ -487,7 +481,7 @@ async function main() {
     console.log('📝 Étape 1: generateArticle...')
     const iaTech = await generateArticle('ia-tech');
     console.log('📝 Étape 2: formatArticle...')
-    const iaTechFormatted = formatArticle(iaTech.content, 'ia-tech');
+    const iaTechFormatted = formatArticle(iaTech.content, 'ia-tech', iaTech.topic);
     console.log('📝 Étape 3: saveArticle...')
     console.log('📝 Title:', iaTechFormatted.title)
     console.log('📝 Filename:', iaTechFormatted.filename)
@@ -499,7 +493,7 @@ async function main() {
 
     // Generate business-en-ligne article
     const business = await generateArticle('business-en-ligne');
-    const businessFormatted = formatArticle(business.content, 'business-en-ligne');
+    const businessFormatted = formatArticle(business.content, 'business-en-ligne', business.topic);
     const businessPath = saveArticle('business-en-ligne', businessFormatted);
     await postToTwitter(businessFormatted.title, businessFormatted.filename.replace('.md',''), 'business-en-ligne')
     log(`\n✅ Article 2 généré : ${businessFormatted.title} (${businessFormatted.wordCount} mots) - ${business.usedApi}`);
