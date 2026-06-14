@@ -157,3 +157,15 @@ TypeError: fetch failed
     at async generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:247:19)
     at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:348:20)
 
+[2026-06-14T17:34:04.643Z] Échec génération ia-tech: prompt is not defined
+ReferenceError: prompt is not defined
+    at generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:387:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:488:20)
+
+[2026-06-14T17:34:04.667Z] Génération articles: prompt is not defined
+ReferenceError: prompt is not defined
+    at generateArticle (file:///C:/Users/daveo/cashnary/scripts/generate.js:387:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async main (file:///C:/Users/daveo/cashnary/scripts/generate.js:488:20)
+
