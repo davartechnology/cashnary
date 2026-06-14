@@ -1,5 +1,6 @@
 import { getAllArticles } from '@/lib/markdown'
 import ArticleCard from '@/components/ArticleCard'
+import AdsUnit from '@/components/AdsUnit'
 import Link from 'next/link'
 
 export default function Home() {
@@ -53,6 +54,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AdsUnit />
 
       {/* IA & Tech Section */}
       <section className="py-16 bg-white/5">
@@ -121,6 +124,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AdsUnit />
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-gold/10 via-gold/5 to-gold/10">
