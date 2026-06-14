@@ -5,7 +5,7 @@
  * Utilise DeepSeek pour ia-tech et Gemini pour business-en-ligne
  */
 
-import { readFileSync, writeFileSync, mkdirSync, appendFileSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, appendFileSync, existsSync, readdirSync, statSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { GoogleGenerativeAI } from '@google/generative-ai'
@@ -94,35 +94,78 @@ const CONFIG = {
   themes: {
     'ia-tech': {
       topics: [
-        "Comment gagner de l'argent avec l'IA en 2026",
-        "10 idées de business avec l'intelligence artificielle",
-        "Comment utiliser ChatGPT pour générer des revenus",
-        "Comment lancer un business automatisé avec l'IA",
-        "7 services que tu peux vendre avec l'intelligence artificielle",
-        "Comment créer un revenu passif avec l'IA",
-        "Les outils d'IA pour gagner de l'argent en ligne",
-        "Comment automatiser un business avec l'intelligence artificielle",
-        "Comment automatiser une chaîne YouTube avec l'IA",
-        "Les meilleures idées de business IA pour débutants"
+        // Plateformes pour gagner de l'argent
+        "Comment gagner de l'argent sur Fiverr en 2026 : guide complet débutant",
+        "TikTok Creator Fund : comment monétiser ta chaîne TikTok étape par étape",
+        "Pinterest : comment gagner de l'argent avec des épingles affiliées",
+        "Instagram : 7 méthodes concrètes pour monétiser ton compte en 2026",
+        "Facebook : comment vendre tes services et produits sur Marketplace",
+        "YouTube : créer une chaîne automatisée avec l'IA et gagner de l'argent",
+        "Upwork vs Fiverr : quelle plateforme choisir pour débuter en freelance",
+        "Comment gagner de l'argent sur Etsy avec des produits digitaux",
+        "Twitch : comment monétiser tes streams même avec peu d'abonnés",
+        "LinkedIn : vendre tes services B2B et trouver des clients premium",
+        
+        // IA & Automatisation
+        "Créer un blog automatisé avec l'IA et gagner de l'argent en dormant",
+        "ChatGPT : 10 idées de niches pour créer du contenu viral et rentable",
+        "Comment créer une chaîne YouTube automatique avec l'IA sans montrer son visage",
+        "Vendre des prompts ChatGPT sur PromptBase : guide complet 2026",
+        "Créer et vendre des formations en ligne avec l'IA en moins de 7 jours",
+        "Comment utiliser Midjourney pour vendre des illustrations sur Etsy",
+        "Automatiser une newsletter rentable avec l'IA et gagner 500$/mois",
+        "Créer des ebooks avec ChatGPT et les vendre sur Amazon KDP",
+        
+        // Crypto & Stablecoins
+        "Gagner de l'argent avec les faucets crypto : guide complet FaucetPay",
+        "Stablecoins : comment gagner des intérêts passifs avec USDT et USDC",
+        "Comment gagner des cryptos gratuitement sans investissement en 2026",
+        "FaucetPay : comment maximiser tes gains avec les micro-tâches crypto",
+        "Créer son propre faucet crypto et gagner de l'argent passivement",
+        "Trading de stablecoins : stratégie pour débutants sans risque",
+        
+        // Musique & Audio
+        "Suno.com : créer de la musique avec l'IA et la vendre en ligne",
+        "Spotify for Artists : comment gagner de l'argent avec ta musique IA",
+        "YouTube Music : monétiser tes créations musicales générées par IA",
+        "DistroKid vs TuneCore : quelle plateforme pour distribuer ta musique IA",
+        "Créer des jingles et musiques de fond avec l'IA pour les YouTubeurs",
+        
+        // Apps & Jeux
+        "Créer une application mobile simple avec l'IA sans coder en 2026",
+        "Bubble.io : créer un SaaS no-code rentable étape par étape",
+        "Créer un petit jeu mobile avec l'IA qui génère des revenus publicitaires",
+        "Idées d'applications utiles à créer avec l'IA qui rapportent en 2026",
+        "Comment monétiser une app gratuite avec des publicités et in-app purchases"
       ]
     },
     'business-en-ligne': {
       topics: [
-        "25 façons de gagner de l'argent sur internet en 2026",
-        "Comment générer 1000$ par mois en ligne",
-        "Les meilleurs business en ligne pour débutants",
-        "Comment démarrer un business en ligne rentable",
-        "15 idées de business en ligne rentables en 2026",
-        "Comment créer un business sur internet avec peu d'argent",
-        "Comment gagner ses premiers 100$ sur internet",
-        "Comment passer de 0$ à 1000$ par mois sur internet",
-        "Les revenus passifs les plus accessibles en 2026",
-        "Comment quitter son travail grâce à internet",
-        "Comment gagner de l'argent en freelance sur internet",
-        "Les services digitaux les plus demandés en 2026",
-        "Comment gagner 2000$ par mois en freelance",
-        "Les meilleures opportunités pour gagner de l'argent en 2026",
-        "Comment créer plusieurs sources de revenus en ligne"
+        // Business & Revenus
+        "Comment passer de 0 à 1000$ par mois en ligne en 90 jours",
+        "Dropshipping en 2026 : est-ce encore rentable et comment démarrer",
+        "Print on demand : créer une boutique Printful sans stock ni investissement",
+        "Affiliate marketing : les 5 niches les plus rentables en 2026",
+        "Créer un SaaS no-code avec Bubble et le vendre 99$/mois",
+        "Comment vendre des templates Notion et gagner de l'argent passif",
+        "Vendre des presets Lightroom sur Etsy : guide complet débutant",
+        "Créer une agence de services IA et facturer 2000$ par client",
+        "Comment écrire et vendre un ebook en 48h avec ChatGPT",
+        "Systeme.io : créer un tunnel de vente gratuit et vendre en automatique",
+        
+        // Freelance
+        "Rédaction web avec l'IA : comment facturer 50€ l'article en freelance",
+        "Community manager freelance : trouver ses premiers clients en 30 jours",
+        "Création de sites web WordPress : facturer 500€ par site sans coder",
+        "Gestionnaire de publicités Facebook Ads : se former et trouver des clients",
+        "Traduction et sous-titrage avec l'IA : gagner de l'argent depuis chez soi",
+        
+        // Stratégies avancées
+        "Email marketing : construire une liste de 1000 abonnés et monétiser",
+        "SEO en 2026 : comment ranker sur Google avec du contenu IA",
+        "Créer un podcast avec l'IA et le monétiser avec des sponsors",
+        "Newsletter payante : comment facturer 10$/mois à 100 abonnés",
+        "Vendre des services sur Malt : créer un profil qui attire les clients"
       ]
     }
   }
@@ -169,6 +212,56 @@ function getRandomTopic(theme) {
   return topics[Math.floor(Math.random() * topics.length)];
 }
 
+function getRecentTitles() {
+  const contentRoot = CONFIG.contentDir;
+  if (!existsSync(contentRoot)) return [];
+
+  const entries = [];
+  const themes = readdirSync(contentRoot, { withFileTypes: true });
+  for (const themeDirent of themes) {
+    if (!themeDirent.isDirectory()) continue;
+    const themeDir = join(contentRoot, themeDirent.name);
+    const files = readdirSync(themeDir);
+    for (const file of files) {
+      if (!file.toLowerCase().endsWith('.md')) continue;
+      const filepath = join(themeDir, file);
+      try {
+        const stats = statSync(filepath);
+        entries.push({ filepath, mtime: stats.mtime.getTime() });
+      } catch (e) {
+        // ignore invalid files
+      }
+    }
+  }
+
+  const recentFiles = entries.sort((a, b) => b.mtime - a.mtime).slice(0, 10);
+  return recentFiles.map(({ filepath }) => {
+    try {
+      const raw = readFileSync(filepath, 'utf8');
+      const frontmatterMatch = raw.match(/^\s*title:\s*["'](.+?)["']\s*$/m);
+      if (frontmatterMatch && frontmatterMatch[1]) {
+        return frontmatterMatch[1].trim();
+      }
+      const lines = raw.split('\n').map(line => line.trim()).filter(Boolean);
+      for (const line of lines) {
+        if (line.startsWith('# ')) {
+          return line.substring(2).trim();
+        }
+      }
+      return filepath;
+    } catch (e) {
+      return filepath;
+    }
+  });
+}
+
+function buildDuplicationPrompt() {
+  const titles = getRecentTitles();
+  if (!titles.length) return '';
+  const list = titles.map(title => `- ${title}`).join('\n');
+  return `SUJETS DÉJÀ TRAITÉS RÉCEMMENT (ne pas répéter) :\n${list}\n\n`;
+}
+
 // Call Groq API
 async function callGrok(prompt) {
   const apiKey = process.env.GROQ_API_KEY;
@@ -184,10 +277,10 @@ async function callGrok(prompt) {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: "Tu es un expert en business en ligne et stratégies pour gagner de l'argent sur internet.\nRédige un article de blog ULTRA captivant en français.\n\nRÈGLES STRICTES :\n- PREMIÈRE LIGNE : titre court et accrocheur (max 80 caractères) en texte brut, sans # ni **\n- Entre 600 et 800 mots STRICTEMENT\n- Utilise ## pour les sous-titres (jamais 'H2:')\n- Donne des étapes CONCRÈTES et ACTIONNABLES\n- Cite des chiffres réels et des exemples précis\n- Parle directement au lecteur avec 'tu'\n- Promets un résultat tangible dès l'introduction\n- Conclusion avec un appel à l'action fort\n- Ton : direct, motivant, expert, comme un mentor\n\nÀ la fin de chaque article, ajoute une section :\n## Les outils recommandés\n\nListe 2-3 outils pertinents avec ce format exact :\n👉 [Nom de l'outil]: systeme.io (LIEN_AFFILIÉ): https://systeme.io/fr?sa=sa02627753482d7e7fc654c659375cfc4a13cabd3a  - Description courte et bénéfice concret\n\nPour les articles ia-tech, recommande : Groq, Notion AI, Cursor, claude, chatgpt, gemini \nPour les articles business, recommande : Systeme.io, Canva, Hostinger" },
+      { role: "system", content: "Tu es un expert en business en ligne, revenus passifs et \nstratégies digitales. Tu écris pour un blog francophone \nappelé CASHNARY.\n\nRÈGLES STRICTES :\n- PREMIÈRE LIGNE : titre court et accrocheur MAX 80 caractères, \n  en texte brut sans # ni **\n- Minimum 2000 caractères OBLIGATOIRE\n- Utilise ## pour les sous-titres (jamais 'H2:' en texte brut)\n- Donne des étapes CONCRÈTES et ACTIONNABLES avec des chiffres\n- Parle directement au lecteur avec 'tu'\n- Cite des plateformes, outils et exemples RÉELS\n- Donne des fourchettes de revenus réalistes\n- Structure : Introduction → Pourquoi ça marche → \n  Étapes concrètes → Erreurs à éviter → \n  Revenus potentiels → Outils recommandés → Conclusion\n- Ton : mentor bienveillant, direct, motivant et honnête\n- Jamais de contenu vague ou générique\n- Toujours donner des actions précises que le lecteur \n  peut faire AUJOURD'HUI" },
       { role: "user", content: prompt }
     ],
-    max_tokens: 1500,
+    max_tokens: 4000,
     temperature: 0.7
   });
   
@@ -249,7 +342,7 @@ async function callDeepSeek(prompt) {
 }
 
 // Call Gemini API
-async function callGemini(topic) {
+async function callGemini(prompt) {
   const apiKey = process.env.GEMINI_API_KEY;
   
   log(`🔍 Gemini API Key: ${apiKey ? apiKey.substring(0, 10) + '...' : 'NOT FOUND'}`);
@@ -261,11 +354,11 @@ async function callGemini(topic) {
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-  const prompt = `Tu es un expert rédacteur de blog francophone spécialisé en business en ligne et entrepreneuriat digital. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.\n\nSujet: ${topic}`;
+  const fullPrompt = `Tu es un expert rédacteur de blog francophone spécialisé en business en ligne et entrepreneuriat digital. Rédige un article de blog professionnel en français. Résous un problème EXACT et CONCRET. Entre 600 et 800 mots STRICTEMENT. Utilise OBLIGATOIREMENT ## pour les sous-titres H2 (exemple : ## Titre de section). N'écris JAMAIS 'H2:' en texte brut. N'utilise JAMAIS ** autour du titre principal. Le titre principal doit être sur la première ligne en texte brut sans #. Introduction qui accroche en 2 phrases. 3 à 4 sections avec sous-titres H2. Conclusion avec appel à l'action. Ton : direct, expert, accessible. Aucun contenu générique ou bateau.\n\nSujet: ${prompt}`;
 
-  log(`📡 Appel Gemini avec le sujet: ${topic}`);
+  log(`📡 Appel Gemini avec le prompt: ${prompt}`);
 
-  const result = await model.generateContent(prompt);
+  const result = await model.generateContent(fullPrompt);
   const response = result.response;
   const text = response.text();
 
@@ -279,6 +372,8 @@ async function callGemini(topic) {
 // Generate article with fallback
 async function generateArticle(theme) {
   const topic = getRandomTopic(theme);
+  const duplicationPrompt = buildDuplicationPrompt();
+  const prompt = `${duplicationPrompt}Rédige un article complet sur le sujet suivant: ${topic}`;
   
   let content = null;
   let usedApi = null;
@@ -287,7 +382,7 @@ async function generateArticle(theme) {
   // Priority: Grok -> Gemini -> DeepSeek
   try {
     log(`\n🤖 Génération article ${theme} avec Grok...`);
-    content = await callGrok(`Rédige un article complet sur le sujet suivant: ${topic}`);
+    content = await callGrok(prompt);
     usedApi = 'Grok';
   } catch (e) {
     log(`⚠️ Grok échoué: ${e.message}`);
@@ -295,7 +390,7 @@ async function generateArticle(theme) {
     // Fallback 1: Gemini
     try {
       log(`🔄 Tentative avec Gemini...`);
-      content = await callGemini(topic);
+      content = await callGemini(prompt);
       usedApi = 'Gemini (fallback)';
     } catch (e2) {
       log(`⚠️ Gemini échoué: ${e2.message}`);
@@ -303,7 +398,7 @@ async function generateArticle(theme) {
       // Fallback 2: DeepSeek
       try {
         log(`🔄 Tentative avec DeepSeek...`);
-        content = await callDeepSeek(`Rédige un article complet sur le sujet suivant: ${topic}`);
+        content = await callDeepSeek(prompt);
         usedApi = 'DeepSeek (fallback)';
       } catch (e3) {
         log(`⚠️ DeepSeek échoué: ${e3.message}`);
