@@ -92,82 +92,8 @@ const CONFIG = {
   logsDir: join(rootDir, 'logs'),
   errorsLog: join(rootDir, 'logs', 'errors.log'),
   themes: {
-    'ia-tech': {
-      topics: [
-        // Plateformes pour gagner de l'argent
-        "Comment gagner de l'argent sur Fiverr en 2026 : guide complet débutant",
-        "TikTok Creator Fund : comment monétiser ta chaîne TikTok étape par étape",
-        "Pinterest : comment gagner de l'argent avec des épingles affiliées",
-        "Instagram : 7 méthodes concrètes pour monétiser ton compte en 2026",
-        "Facebook : comment vendre tes services et produits sur Marketplace",
-        "YouTube : créer une chaîne automatisée avec l'IA et gagner de l'argent",
-        "Upwork vs Fiverr : quelle plateforme choisir pour débuter en freelance",
-        "Comment gagner de l'argent sur Etsy avec des produits digitaux",
-        "Twitch : comment monétiser tes streams même avec peu d'abonnés",
-        "LinkedIn : vendre tes services B2B et trouver des clients premium",
-        
-        // IA & Automatisation
-        "Créer un blog automatisé avec l'IA et gagner de l'argent en dormant",
-        "ChatGPT : 10 idées de niches pour créer du contenu viral et rentable",
-        "Comment créer une chaîne YouTube automatique avec l'IA sans montrer son visage",
-        "Vendre des prompts ChatGPT sur PromptBase : guide complet 2026",
-        "Créer et vendre des formations en ligne avec l'IA en moins de 7 jours",
-        "Comment utiliser Midjourney pour vendre des illustrations sur Etsy",
-        "Automatiser une newsletter rentable avec l'IA et gagner 500$/mois",
-        "Créer des ebooks avec ChatGPT et les vendre sur Amazon KDP",
-        
-        // Crypto & Stablecoins
-        "Gagner de l'argent avec les faucets crypto : guide complet FaucetPay",
-        "Stablecoins : comment gagner des intérêts passifs avec USDT et USDC",
-        "Comment gagner des cryptos gratuitement sans investissement en 2026",
-        "FaucetPay : comment maximiser tes gains avec les micro-tâches crypto",
-        "Créer son propre faucet crypto et gagner de l'argent passivement",
-        "Trading de stablecoins : stratégie pour débutants sans risque",
-        
-        // Musique & Audio
-        "Suno.com : créer de la musique avec l'IA et la vendre en ligne",
-        "Spotify for Artists : comment gagner de l'argent avec ta musique IA",
-        "YouTube Music : monétiser tes créations musicales générées par IA",
-        "DistroKid vs TuneCore : quelle plateforme pour distribuer ta musique IA",
-        "Créer des jingles et musiques de fond avec l'IA pour les YouTubeurs",
-        
-        // Apps & Jeux
-        "Créer une application mobile simple avec l'IA sans coder en 2026",
-        "Bubble.io : créer un SaaS no-code rentable étape par étape",
-        "Créer un petit jeu mobile avec l'IA qui génère des revenus publicitaires",
-        "Idées d'applications utiles à créer avec l'IA qui rapportent en 2026",
-        "Comment monétiser une app gratuite avec des publicités et in-app purchases"
-      ]
-    },
-    'business-en-ligne': {
-      topics: [
-        // Business & Revenus
-        "Comment passer de 0 à 1000$ par mois en ligne en 90 jours",
-        "Dropshipping en 2026 : est-ce encore rentable et comment démarrer",
-        "Print on demand : créer une boutique Printful sans stock ni investissement",
-        "Affiliate marketing : les 5 niches les plus rentables en 2026",
-        "Créer un SaaS no-code avec Bubble et le vendre 99$/mois",
-        "Comment vendre des templates Notion et gagner de l'argent passif",
-        "Vendre des presets Lightroom sur Etsy : guide complet débutant",
-        "Créer une agence de services IA et facturer 2000$ par client",
-        "Comment écrire et vendre un ebook en 48h avec ChatGPT",
-        "Systeme.io : créer un tunnel de vente gratuit et vendre en automatique",
-        
-        // Freelance
-        "Rédaction web avec l'IA : comment facturer 50€ l'article en freelance",
-        "Community manager freelance : trouver ses premiers clients en 30 jours",
-        "Création de sites web WordPress : facturer 500€ par site sans coder",
-        "Gestionnaire de publicités Facebook Ads : se former et trouver des clients",
-        "Traduction et sous-titrage avec l'IA : gagner de l'argent depuis chez soi",
-        
-        // Stratégies avancées
-        "Email marketing : construire une liste de 1000 abonnés et monétiser",
-        "SEO en 2026 : comment ranker sur Google avec du contenu IA",
-        "Créer un podcast avec l'IA et le monétiser avec des sponsors",
-        "Newsletter payante : comment facturer 10$/mois à 100 abonnés",
-        "Vendre des services sur Malt : créer un profil qui attire les clients"
-      ]
-    }
+    'ia-tech': {},
+    'business-en-ligne': {}
   }
 };
 
@@ -206,60 +132,120 @@ function getDateString() {
   return now.toISOString().split('T')[0];
 }
 
-// Generate random topic for theme
-function getRandomTopic(theme) {
-  const topics = CONFIG.themes[theme].topics;
-  return topics[Math.floor(Math.random() * topics.length)];
+async function generateTopic(theme, recentTitles) {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
+  
+  const themeContext = theme === 'ia-tech' 
+    ? `intelligence artificielle, automatisation, crypto, faucets, 
+       stablecoins, musique IA (Suno/Spotify), création d'apps, 
+       plateformes (Fiverr/Upwork/Etsy/TikTok/YouTube/Instagram/Pinterest),
+       ChatGPT, outils IA pour gagner de l'argent`
+    : `business en ligne, freelance, dropshipping, print on demand,
+       affiliate marketing, email marketing, SEO, newsletters payantes,
+       vente de templates/ebooks/formations, agences digitales,
+       Systeme.io, Malt, plateformes de vente digitale`
+
+  const completion = await groq.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
+    messages: [
+      {
+        role: 'system',
+        content: `Tu génères des titres d'articles de blog uniques et accrocheurs 
+        pour un blog francophone appelé CASHNARY spécialisé en ${themeContext}.
+        
+        RÈGLES :
+        - Titre MAX 80 caractères
+        - Toujours orienté "gagner de l'argent" ou "stratégie concrète"
+        - Inclure des chiffres quand possible (ex: 500$/mois, 7 jours, 3 étapes)
+        - Jamais répéter un sujet déjà traité
+        - Varier les plateformes, méthodes et approches
+        - Répondre UNIQUEMENT avec le titre, rien d'autre`
+      },
+      {
+        role: 'user',
+        content: `Génère UN SEUL titre d'article original pour la thématique: ${theme}
+        
+        Sujets déjà traités récemment (NE PAS répéter) :
+        ${recentTitles.join('\n')}
+        
+        Réponds uniquement avec le titre, sans guillemets ni ponctuation finale.`
+      }
+    ],
+    max_tokens: 100,
+    temperature: 0.9
+  })
+  
+  return completion.choices[0].message.content.trim()
 }
 
-function getRecentTitles() {
-  const contentRoot = CONFIG.contentDir;
-  if (!existsSync(contentRoot)) return [];
+function getRecentTitles(theme, count = 20) {
+  try {
+    const themeDir = join(rootDir, 'content', theme)
+    if (!existsSync(themeDir)) return []
+    
+    const files = readdirSync(themeDir)
+      .filter(f => f.endsWith('.md'))
+      .sort()
+      .reverse()
+      .slice(0, count)
+    
+    return files.map(file => {
+      const content = readFileSync(join(themeDir, file), 'utf-8')
+      const titleMatch = content.match(/title:\s*"(.+)"/)
+      return titleMatch ? titleMatch[1] : file
+    })
+  } catch(e) {
+    return []
+  }
+}
 
-  const entries = [];
-  const themes = readdirSync(contentRoot, { withFileTypes: true });
-  for (const themeDirent of themes) {
-    if (!themeDirent.isDirectory()) continue;
-    const themeDir = join(contentRoot, themeDirent.name);
-    const files = readdirSync(themeDir);
+function getRecentTitlesAll(count = 10) {
+  const contentRoot = CONFIG.contentDir
+  if (!existsSync(contentRoot)) return []
+
+  const entries = []
+  const themes = Object.keys(CONFIG.themes)
+  for (const theme of themes) {
+    const themeDir = join(contentRoot, theme)
+    if (!existsSync(themeDir)) continue
+    const files = readdirSync(themeDir)
     for (const file of files) {
-      if (!file.toLowerCase().endsWith('.md')) continue;
-      const filepath = join(themeDir, file);
+      if (!file.toLowerCase().endsWith('.md')) continue
+      const filepath = join(themeDir, file)
       try {
-        const stats = statSync(filepath);
-        entries.push({ filepath, mtime: stats.mtime.getTime() });
+        const stats = statSync(filepath)
+        entries.push({ filepath, mtime: stats.mtime.getTime() })
       } catch (e) {
         // ignore invalid files
       }
     }
   }
 
-  const recentFiles = entries.sort((a, b) => b.mtime - a.mtime).slice(0, 10);
-  return recentFiles.map(({ filepath }) => {
+  return entries.sort((a, b) => b.mtime - a.mtime).slice(0, count).map(({ filepath }) => {
     try {
-      const raw = readFileSync(filepath, 'utf8');
-      const frontmatterMatch = raw.match(/^\s*title:\s*["'](.+?)["']\s*$/m);
-      if (frontmatterMatch && frontmatterMatch[1]) {
-        return frontmatterMatch[1].trim();
+      const raw = readFileSync(filepath, 'utf8')
+      const titleMatch = raw.match(/title:\s*"(.+)"/)
+      if (titleMatch && titleMatch[1]) {
+        return titleMatch[1].trim()
       }
-      const lines = raw.split('\n').map(line => line.trim()).filter(Boolean);
+      const lines = raw.split('\n').map(line => line.trim()).filter(Boolean)
       for (const line of lines) {
         if (line.startsWith('# ')) {
-          return line.substring(2).trim();
+          return line.substring(2).trim()
         }
       }
-      return filepath;
+      return filepath
     } catch (e) {
-      return filepath;
+      return filepath
     }
-  });
+  })
 }
 
 function buildDuplicationPrompt() {
-  const titles = getRecentTitles();
-  if (!titles.length) return '';
-  const list = titles.map(title => `- ${title}`).join('\n');
-  return `SUJETS DÉJÀ TRAITÉS RÉCEMMENT (ne pas répéter) :\n${list}\n\n`;
+  const titles = getRecentTitlesAll(10)
+  if (!titles.length) return ''
+  const list = titles.map(title => `- ${title}`).join('\n')
+  return `SUJETS DÉJÀ TRAITÉS RÉCEMMENT (ne pas répéter) :\n${list}\n\n`
 }
 
 // Call Groq API
@@ -371,9 +357,9 @@ async function callGemini(prompt) {
 
 // Generate article with fallback
 async function generateArticle(theme) {
-  const topic = getRandomTopic(theme);
-  const duplicationPrompt = buildDuplicationPrompt();
-  const prompt = `${duplicationPrompt}Rédige un article complet sur le sujet suivant: ${topic}`;
+  const recentTitles = getRecentTitles(theme)
+  const topic = await generateTopic(theme, recentTitles)
+  log(`📌 Sujet généré : ${topic}`)
   
   let content = null;
   let usedApi = null;
